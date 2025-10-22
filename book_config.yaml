@@ -1,0 +1,38 @@
+
+# Конфигурация ssv-book-generator
+project:
+  name: "SSVproff Book Generator"
+  version: "1.0.0"
+
+paths:
+  input_folder: "./input"  # Папка с исходными данными (идеи, транскрипции)
+  output_folder: "./output" # Папка для результатов (финальные книги, пакеты)
+
+book:
+  title: "Моя тестовая книга SSVproff" # Заголовок по умолчанию, может быть перезаписан ИИ
+  type: "scientific" # "scientific" (научная), "fiction" (художественная), "surgery" (хирургия), "oncology" (онкология)
+  target_audience: "students" # "doctors", "students", "patients", "general_public"
+  language: "ru" # Язык генерации
+  genre: "educational" # "educational", "review", "narrative", "textbook" и др.
+
+ai:
+  content_provider: "openai_gpt" # Провайдер для генерации текста
+  content_model: "gpt-4o" # Модель для генерации текста
+  image_provider: "stable_diffusion" # Провайдер для генерации изображений
+  image_model: "sd_xl_base_1.0" # Модель для генерации изображений
+  temperature: 0.7 # Креативность ИИ
+
+branding:
+  style: "ssvproff_v1" # Идентификатор стиля бренда (обложка, шрифты и т.д.)
+  logo_path: "./assets/ssvproff_logo.png" # Путь к логотипу (если используется)
+
+formatting:
+  output_format: "pdf" # "pdf", "epub", "mobi", "html"
+  template: "academic" # "academic", "fiction", "custom_ssvproff" (путь к шаблону)
+
+open_science:
+  generate_artifacts: true # Экспортировать исходники, промежуточные файлы
+  generate_readme: true # Создать README.md для пакета книги
+
+# synthesis:
+#   enabled: false # Включить автоматическую генерацию книги после обработки входных данных
