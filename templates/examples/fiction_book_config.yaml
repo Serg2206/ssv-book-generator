@@ -1,0 +1,35 @@
+
+# Конфигурация для художественной книги
+project:
+  name: "SSVproff Book Generator"
+  version: "1.0.0"
+
+paths:
+  input_folder: "./input"
+  output_folder: "./output"
+
+book:
+  title: "Рассказы о науке"
+  type: "fiction"
+  target_audience: "general_public"
+  language: "ru"
+  genre: "narrative"
+
+ai:
+  content_provider: "anthropic_claude"
+  content_model: "claude-3-opus-20240229"
+  image_provider: "stable_diffusion"
+  image_model: "sd_xl_base_1.0"
+  temperature: 0.9
+
+branding:
+  style: "ssvproff_creative"
+  logo_path: "./assets/ssvproff_logo.png"
+
+formatting:
+  output_format: "epub"
+  template: "fiction"
+
+open_science:
+  generate_artifacts: false
+  generate_readme: true

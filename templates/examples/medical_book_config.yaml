@@ -1,0 +1,35 @@
+
+# Конфигурация для медицинской книги
+project:
+  name: "SSVproff Book Generator"
+  version: "1.0.0"
+
+paths:
+  input_folder: "./input"
+  output_folder: "./output"
+
+book:
+  title: "Клиническое руководство по онкологии"
+  type: "oncology"
+  target_audience: "doctors"
+  language: "ru"
+  genre: "clinical_guide"
+
+ai:
+  content_provider: "openai_gpt"
+  content_model: "gpt-4o"
+  image_provider: "openai_dalle"
+  image_model: "dall-e-3"
+  temperature: 0.5
+
+branding:
+  style: "ssvproff_medical"
+  logo_path: "./assets/ssvproff_logo.png"
+
+formatting:
+  output_format: "pdf"
+  template: "medical"
+
+open_science:
+  generate_artifacts: true
+  generate_readme: true

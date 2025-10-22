@@ -1,12 +1,39 @@
+# SSVproff Book Generator - Requirements
+# Python 3.8+
 
-openai>=1.0.0  # Для генерации текста через OpenAI
-# anthropic>=0.5.0 # Для генерации текста через Anthropic (опционально)
-pillow # Для обработки изображений (обложки, иллюстрации)
-pyyaml # Для работы с book_config.yaml
-python-dotenv # Для загрузки .env
-requests # Для HTTP-запросов (API генерации изображений)
-# moviepy>=1.0.3 # (опционально, если будет генерироваться аудио/видео контент)
-# ebooklib # Для работы с EPUB
-# fpdf2 # Для генерации PDF
-# weasyprint # Для рендеринга HTML в PDF (с CSS)
-# latex # Для сложных научных формул (требует отдельной установки)
+# Core dependencies
+pyyaml>=6.0
+
+# AI Content Generation
+openai>=1.3.0
+anthropic>=0.7.0
+
+# Image Processing
+Pillow>=10.0.0
+requests>=2.31.0
+
+# PDF Generation
+fpdf2>=2.7.0
+
+# EPUB Generation
+ebooklib>=0.18
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+
+# Code Quality
+black>=23.7.0
+flake8>=6.1.0
+mypy>=1.5.0
+
+# Optional: Alternative PDF generators (commented out by default)
+# weasyprint>=59.0  # For HTML to PDF conversion (requires system dependencies)
+# reportlab>=4.0.0  # Alternative PDF library
+
+# Optional: Stability AI SDK (if using Stable Diffusion)
+# stability-sdk>=0.8.0
+
+# Development tools
+ipython>=8.14.0
