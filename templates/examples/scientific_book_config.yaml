@@ -1,0 +1,35 @@
+
+# Конфигурация для научной книги
+project:
+  name: "SSVproff Book Generator"
+  version: "1.0.0"
+
+paths:
+  input_folder: "./input"
+  output_folder: "./output"
+
+book:
+  title: "Современные методы машинного обучения"
+  type: "scientific"
+  target_audience: "students"
+  language: "ru"
+  genre: "educational"
+
+ai:
+  content_provider: "openai_gpt"
+  content_model: "gpt-4o"
+  image_provider: "stable_diffusion"
+  image_model: "sd_xl_base_1.0"
+  temperature: 0.7
+
+branding:
+  style: "ssvproff_v1"
+  logo_path: "./assets/ssvproff_logo.png"
+
+formatting:
+  output_format: "pdf"
+  template: "academic"
+
+open_science:
+  generate_artifacts: true
+  generate_readme: true

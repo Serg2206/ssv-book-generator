@@ -1,0 +1,40 @@
+
+# Медицинский стиль оформления
+name: "Medical Professional Style"
+description: "Профессиональный стиль для медицинских публикаций"
+
+fonts:
+  main: "Arial"
+  headings: "Arial Bold"
+  code: "Consolas"
+  size:
+    body: 10
+    heading1: 14
+    heading2: 12
+    heading3: 11
+
+colors:
+  primary: "#0066cc"
+  secondary: "#003366"
+  accent: "#ff6b6b"
+  text: "#333333"
+  background: "#ffffff"
+  callout: "#e8f4f8"
+
+layout:
+  margins:
+    top: 2.0
+    bottom: 2.0
+    left: 2.5
+    right: 2.5
+  line_height: 1.4
+  paragraph_spacing: 1.0
+
+features:
+  table_of_contents: true
+  page_numbers: true
+  headers: true
+  footers: true
+  chapter_breaks: true
+  callout_boxes: true
+  clinical_notes: true
