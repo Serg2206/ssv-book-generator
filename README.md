@@ -562,3 +562,187 @@ def my_function(param1: str, param2: int) -> bool:
 ---
 
 **Создано с ❤️ с помощью SSVproff Book Generator**
+
+
+---
+
+## 🆕 Version 2.1 - Architecture Improvements
+
+### 📦 New Infrastructure Modules
+
+Версия 2.1 добавляет мощную инфраструктуру для надежной работы генератора:
+
+#### `utils/error_handler.py`
+- **Кастомные исключения**: `SSVBookGeneratorError`, `ValidationError`, `APIError`, `FileProcessingError`
+- **Декоратор `@retry_on_error`**: Автоматические повторные попытки при сбоях
+- **Декоратор `@handle_api_errors`**: Обработка ошибок API
+- **Context manager `safe_execute`**: Безопасное выполнение операций
+
+```python
+from utils.error_handler import retry_on_error, APIError
+
+@retry_on_error(max_attempts=3, delay=1.0)
+def generate_content(prompt):
+    # Автоматически повторит до 3 раз при ошибке
+    return ai_client.generate(prompt)
+```
+
+#### `utils/logger.py`
+- **Цветное консольное логирование**: Разные цвета для разных уровней
+- **JSON логи**: Структурированные логи для анализа
+- **Декоратор `@log_function_call`**: Автоматическое логирование функций
+- **Измерение времени выполнения**: Автоматический профайлинг
+
+```python
+from utils.logger import setup_logger, log_function_call
+
+logger = setup_logger(__name__, log_file="app.log")
+
+@log_function_call()
+def process_chapters(chapters):
+    # Автоматически логирует вызов, аргументы и время выполнения
+    return [process(ch) for ch in chapters]
+```
+
+#### `utils/validator.py`
+- **Pydantic модели**: `BookMetadata`, `ChapterData`, `BookConfig`
+- **Енумы**: `OutputFormat`, `LogLevel`
+- **Валидационные функции**: `validate_file_path()`, `validate_chapters()`
+- **Строгая типизация**: Автоматическая валидация данных
+
+```python
+from utils.validator import BookMetadata, ChapterData, validate_chapters
+
+metadata = BookMetadata(
+    title="Medical Guide",
+    author="Dr. Smith",
+    language="en"
+)
+
+chapters = [
+    ChapterData(chapter_num=1, title="Intro", content="...")
+]
+validate_chapters(chapters)  # Проверит корректность
+```
+
+### 🚀 Enhanced Generator Modules
+
+#### `modules/book_generator_v2.py`
+**6-этапный пайплайн генерации**:
+1. 📖 Чтение input файла
+2. 📝 Генерация метаданных
+3. 📚 Генерация глав
+4. 🖼️ Генерация изображений
+5. 📄 Форматирование
+6. 📦 Упаковка результата
+
+**Полная интеграция с utils**:
+- Автоматический retry при ошибках API
+- Детальное логирование каждого этапа
+- Валидация всех данных
+- Progress bars для визуализации прогресса
+
+```python
+from modules.book_generator_v2 import BookGeneratorV2
+
+generator = BookGeneratorV2(api_key="your-key")
+book = generator.generate(
+    input_file="surgical_topics.txt",
+    output_dir="output"
+)
+```
+
+#### `modules/chapter_generator.py`
+**Параллельная обработка**:
+- `ThreadPoolExecutor` для одновременной генерации глав
+- Настраиваемое количество воркеров
+- Fallback на последовательную обработку
+
+**Интеллектуальное кеширование**:
+- MD5-based кеш ключи
+- Автоматическое переиспользование контента
+- Методы управления кешем (clear, stats)
+
+```python
+from modules.chapter_generator import ChapterGenerator
+
+generator = ChapterGenerator(api_key="key")
+chapters = generator.generate_chapters_parallel(
+    sections=topics,
+    max_workers=4,  # 4 параллельных запроса
+    use_cache=True  # Использовать кеш
+)
+```
+
+#### `modules/book_formatter.py` (обновлен)
+**Улучшенное форматирование**:
+- Интеграция с `BookMetadata` и `ChapterData`
+- Error handling с `@handle_api_errors`
+- Валидация входных данных
+- Поддержка PDF, EPUB, HTML
+
+### 🧪 Comprehensive Testing
+
+Добавлены pytest тесты:
+- `tests/test_error_handler.py` (197 строк)
+- `tests/test_logger.py` (249 строк)
+- `tests/test_validator.py` (293 строк)
+
+**Покрытие**:
+- Unit тесты для всех модулей
+- Integration тесты
+- Edge cases и error scenarios
+
+```bash
+# Запуск тестов
+pytest tests/ -v
+
+# С покрытием
+pytest tests/ --cov=utils --cov=modules
+```
+
+### 📋 Updated Dependencies
+
+```
+pydantic>=2.0.0      # Валидация данных
+colorama>=0.4.6      # Цветной вывод
+pytest>=7.4.0        # Тестирование
+pytest-cov>=4.1.0    # Coverage reports
+```
+
+### 🎯 Migration Guide v1.0 → v2.1
+
+**Старый код (v1.0)**:
+```python
+from modules.book_generator import BookGenerator
+
+generator = BookGenerator()
+book = generator.generate(input_file)
+```
+
+**Новый код (v2.1)**:
+```python
+from modules.book_generator_v2 import BookGeneratorV2
+from utils.logger import setup_logger
+
+logger = setup_logger(__name__)
+
+generator = BookGeneratorV2(api_key="key")
+book = generator.generate(
+    input_file="topics.txt",
+    output_dir="output",
+    parallel=True,
+    use_cache=True
+)
+```
+
+**Преимущества v2.1**:
+- ✅ Автоматический retry при ошибках
+- ✅ Детальное логирование
+- ✅ Валидация данных
+- ✅ Параллельная обработка
+- ✅ Кеширование результатов
+- ✅ Полное тестовое покрытие
+
+---
+
